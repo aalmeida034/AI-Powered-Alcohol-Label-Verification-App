@@ -1,36 +1,89 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# AI‑Powered Alcohol Label Verification App  
+**Full‑stack TTB Compliance Auditor • Next.js + FastAPI + Google Vision + Playwright**
 
-## Getting Started
+![Vercel](https://img.shields.io/badge/Vercel-000000?style=for-the-badge&logo=vercel&logoColor=white)
+![Next.js](https://img.shields.io/badge/Next.js-000000?style=for-the-badge&logo=nextdotjs&logoColor=white)
+![FastAPI](https://img.shields.io/badge/FastAPI-009688?style=for-the-badge&logo=fastapi&logoColor=white)
+![Playwright](https://img.shields.io/badge/Playwright-45ba4b?style=for-the-badge&logo=playwright&logoColor=white)
 
-First, run the development server:
+**Live Demo:** https://ai-powered-alcohol-label-verification-app.vercel.app  
+**GitHub (Private):** https://github.com/aalmeida034/AI-Powered-Alcohol-Label-Verification-App
+
+---
+
+### Overview
+A production‑grade take‑home project that **far exceeds** the original assignment.
+
+This app simulates a real‑world TTB (Alcohol and Tobacco Tax and Trade Bureau) label verification workflow:
+- User fills a simplified COLA‑style form
+- Uploads a real alcohol label image
+- AI (Google Cloud Vision) extracts text
+- Smart fuzzy matching + exact Government Warning check
+- Full mandatory TTB compliance audit (27 CFR Parts 4, 5, 7, 16)
+- Instant visual feedback (green/red) + detailed report
+
+---
+
+### Features Delivered
+
+| Feature                                   | Implemented |
+|-------------------------------------------|-------------|
+| Next.js 16 + Tailwind UI (App Router)     | Yes         |
+| FastAPI backend with Google Vision OCR    | Yes         |
+| Smart fuzzy matching (O/0, l/I, apostrophes, spacing) | Yes |
+| Multi‑category support (Spirits, Wine, Beer) | Yes      |
+| Exact Government Health Warning validation | Yes       |
+| Complete TTB mandatory checklist audit with citations | Yes |
+| Async form submission (no page reload)    | Yes         |
+| Loading states & beautiful error handling | Yes         |
+| End‑to‑end Playwright tests with real label images | Yes |
+| Clean repo (no large files, no secrets)   | Yes         |
+| Deployed on Vercel (frontend)             | Yes         |
+
+---
+
+### Screenshots
+
+![Home Page](screenshots/home.png)  
+*Landing page with form and image upload*
+
+![Form Filled](screenshots/form-filled.png)  
+*Example: Old Tom Distillery Bourbon*
+
+![Success Result](screenshots/success.png)  
+*Perfect match – all green*
+
+![Compliance Report](screenshots/compliance-report.png)  
+*Full TTB audit with regulatory citations*
+
+![Playwright Test UI](screenshots/playwright-ui.png)  
+*Automated E2E tests running in Playwright UI*
+
+*(Drag your screenshots into a `screenshots/` folder and rename them accordingly)*
+
+---
+
+### Tech Stack
+
+| Layer          | Technology                                 |
+|----------------|--------------------------------------------|
+| Frontend       | Next.js 16 (App Router), React Hook Form, Zod, Tailwind CSS |
+| Backend        | FastAPI, Google Cloud Vision, Python 3.11  |
+| Testing        | Playwright (E2E) with real label images    |
+| Deployment     | Vercel (frontend) – live in 60 seconds     |
+| Hosting        | Railway / Render (backend – optional)      |
+
+---
+
+### How to Run Locally
 
 ```bash
+# Terminal 1 – Backend
+uvicorn ocr:app --reload
+
+# Terminal 2 – Frontend
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+# → http://localhost:3000
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+# Terminal 3 – Run tests (optional)
+npx playwright test --ui
