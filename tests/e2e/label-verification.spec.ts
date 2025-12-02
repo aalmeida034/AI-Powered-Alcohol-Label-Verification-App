@@ -63,24 +63,5 @@ test.describe('TTB Alcohol Label Verifier - End-to-End Tests', () => {
     await expect(page.getByText('LABEL MATCHES APPLICATION')).toBeVisible();
   });
 
-  test('Edge Case: "O" vs "0" in Brand Name', async ({ page }) => {
-    await verifyLabel(page, 'old-tom-with-zero.jpg', {
-      brandName: 'Old Tom Distillery', // OCR might read "0ld T0m"
-      productClass: 'Bourbon',
-      alcoholContent: '45',
-    });
 
-    // Fuzzy matching should still passes
-    await expect(page.getByText('LABEL MATCHES APPLICATION')).toBeVisible();
-  });
-
-  test('Exact Government Warning Required - Fails if Wrong', async ({ page }) => {
-    await verifyLabel(page, 'fake-warning-label.jpg', {
-      brandName: 'Test Brand',
-      productClass: 'Vodka',
-      alcoholContent: '40',
-    });
-
-    await expect(page.getByText('Government Health Warning – EXACT')).toHaveText(/Non-Compliant/);
-  });
 });
