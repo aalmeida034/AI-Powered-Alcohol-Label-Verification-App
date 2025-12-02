@@ -1,0 +1,34 @@
+# AI-Powered Alcohol Label Verifier
+
+Simplified TTB label approval simulator. Full-stack Next.js app with client-side OCR for form-label matching.
+
+![Screenshot](https://via.placeholder.com/800x400?text=App+Demo) <!-- Add your screenshot here -->
+
+## Features
+- **Form**: Brand Name, Product Class/Type, ABV (%), Net Contents (opt).
+- **Upload**: Drag-drop image preview (JPEG/PNG).
+- **AI/OCR**: Tesseract.js extracts text; fuzzy matching (case-insens., partial, regex for ABV/volumes) vs form.
+- **Results**: Success/fail alert + checklist (all discrepancies); error handling (unreadable images).
+- **Bonuses**: Government warning check; text highlighting (red boxes on matches); OCR confidence filtering.
+
+## Local Setup
+0. Make sure you first run `pip install python-multipart` on your terminal. 
+1. Clone: `git clone <your-repo-url> && cd alcohol-label-verifier`
+2. Install: `npm install`
+3. Run: `npm run dev` → Open http://localhost:3000
+4. Test: Fill form → Upload label image → Verify → See results/highlights.
+
+
+## Tech Choices & Assumptions
+- **Next.js 15 + TS**: Single codebase, easy Vercel deploy.
+- **shadcn/ui + Tailwind**: Pro UI/UX in minutes.
+- **Tesseract.js**: Offline OCR (no APIs); fuzzy tolerance for errors (e.g., "45%" matches "Alc 45% Vol").
+- **React Hook Form + Zod**: Validated forms.
+- Matching: Case-insensitive partial; ABV regex tolerant; highlights via bbox (bonus).
+- Limitations: Assumes English/clear text; no DB (stateless). Extend: Server-side OCR for batches.
+
+## Testing
+- Manual: Matches (green ✅), mismatches (red ❌, all listed), errors (alerts).
+- Samples: Use bourbon labels (e.g., Jack Daniel's for "40% ABV, 750 mL").
+
+Deployed: [Live URL](https://your-vercel-app.vercel.app)
