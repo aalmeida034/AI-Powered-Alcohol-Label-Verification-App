@@ -26,8 +26,24 @@ A **production-grade**, self-hosted TTB (Alcohol and Tobacco Tax and Trade Burea
 - Full mandatory TTB compliance audit (27 CFR Parts 4, 5, 7, 16)
 - Instant visual feedback + detailed regulatory report
 
+## Justification for using EasyOCR & Google Cloud Vision API
 
+Standard OCR engines (Tesseract.js, Pytesseract, etc.) are optimised for flat, straight text. Curved text introduces several mathematical challenges:
+
+- **Cylindrical projection distortion** – Text follows an arc, where i is the character index and α is angular spacing. These effects cause standard OCR pipelines to produce very low recall and high CER on bottle labels, stamps, and other cylindrical objects unless specialised curved-text models.  This can typically be parameterised as:  
+  ```math
+  x' = r \cos(\theta + \alpha \cdot i), \quad y' = r \sin(\theta + \alpha \cdot i) + y_{\text{offset}}
 ---
+## Dewarping Techniques for Curved/Cylindrical Text
+
+| Method                          | Core Idea                                                                 | Pros                                      | Cons / Limitations                            | Best For                               | Open-Source Example |
+|---------------------------------|---------------------------------------------------------------------------|-------------------------------------------|-----------------------------------------------|----------------------------------------|---------------------|
+| **1. Arc/Circle Fitting + Polar Transform** | Fit a circle/arc to the text baseline → unwrap into polar coordinates → rectify to rectangle | Simple, fast, works well if text is on a clean arc | Fails on wavy/multi-line text, needs accurate arc | Single-line bottle neck labels         | OpenCV + custom script |
+| **2. Cylindrical Unwrapping (known radius)** | Assume known bottle radius → back-project image onto cylinder → flatten | Physically accurate for true cylinders    | Requires known radius + camera intrinsics     | Controlled industrial setups           | OpenCV `warpPerspective` with cylinder map |
+| **3. Baseline Regression + Thin-Plate Spline (TPS)** | Detect text baseline points → fit spline → use TPS to straighten image   | Handles mild curves and waves well        | Struggles with very tight curves or 360° text | Slightly curved labels                 | DeepReg, DocTr (TPS branch) |
+| **4. Fourier-based Dewarping**  | Model distorted baseline with Fourier descriptors → invert distortion     | Mathematically elegant, few parameters    | Sensitive to noise, poor on non-smooth curves | Smooth arcs                            | DewarpNet (early versions) |
+| **5. Learning-based Geometric Rectification** | CNN predicts pixel-wise flow field or Bézier control points to flatten   | State-of-the-art accuracy, handles complex curves | Needs training data + GPU inference       | Arbitrary curved text (bottles, books) | DewarpNet, DocTr, GeomNet, PWCN, MARCN |
+| **6. Curved-Text Native Models (no dewarping)** | Directly detect & recognise curved text using polygons/Béziers (ABCNet, TextSnake, SA-Text) | Avoids error-prone dewarping step         | Usually slower, lower maturity than flat OCR  | When you can replace Tesseract entirely| ABCNet v2, TextRay, SATRN (curved branch) |
 ### Features Delivered
 | Feature                                  | Status |
 |------------------------------------------|--------|
