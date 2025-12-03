@@ -16,6 +16,9 @@ You can use sample figures found in /tests/fixtures
 
 https://github.com/aalmeida034/AI-Powered-Alcohol-Label-Verification-App
 
+
+**Video Demo:**
+https://youtu.be/XibYcFIJ3JA
 ---
 ### Overview
 A **production-grade**, self-hosted TTB (Alcohol and Tobacco Tax and Trade Bureau) label verification tool that runs 100% from your own computer or remotely.
