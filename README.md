@@ -84,6 +84,53 @@ Standard OCR engines (Tesseract.js, Pytesseract, etc.) are optimised for flat, s
 <img width="944" height="595" alt="unit_test" src="https://github.com/user-attachments/assets/1838d7ec-6a6f-4cea-8cd7-da5d41d0b1a2" />
 
 ---
+
+## Setting Up Google Cloud Vision API Credentials
+
+To use the Cloud Vision API in this project, you'll need to create a Google Cloud project, enable the API, and generate a service account key as a JSON file. Save this as `google-credentials.json` and place it in the root of your project directory (add it to `.gitignore` for security!).
+
+### Prerequisites
+- A Google account (sign up at [accounts.google.com](https://accounts.google.com) if needed).
+- Billing enabled on your Google Cloud project (required for API usage; see [billing docs](https://cloud.google.com/billing/docs/how-to/manage-billing-account) for details). Note: Vision API usage incurs costs based on requests but you get $300 in free credits upon making a new account.
+
+### Step-by-Step Guide
+
+1. **Create or Select a Google Cloud Project**  
+   - Go to the [Google Cloud Console](https://console.cloud.google.com/).  
+   - In the top navigation bar, click the project selector (folder icon) and choose **New Project** (or select an existing one).  
+   - Enter a project name and note the **Project ID** (e.g., `my-vision-project-12345`)—you'll need this later.  
+   - Click **Create**. Ensure you have the **Project Creator** role (`roles/resourcemanager.projectCreator`).
+
+2. **Enable Billing on the Project**  
+   - In the Cloud Console, navigate to **Billing** in the left sidebar.  
+   - Link a billing account to your project (create one if needed).  
+   - Verify it's active—API calls won't work without this.
+
+3. **Enable the Cloud Vision API**  
+   - In the Cloud Console, go to **APIs & Services > Library**.  
+   - Search for "Cloud Vision API" and select it.  
+   - Click **Enable**. (Requires **Service Usage Admin** role: `roles/serviceusage.serviceUsageAdmin`.)
+
+4. **Create a Service Account**  
+   - In the Cloud Console, navigate to **IAM & Admin > Service Accounts**.  
+   - Click **Create Service Account**.  
+   - Enter a name (e.g., `vision-api-service-account`), description, and click **Create and Continue**.  
+   - (Optional) Grant roles: Add **Cloud Vision API User** (`roles/cloudvision.user`) for basic access.  
+   - Click **Done** to finish.
+
+5. **Generate and Download the JSON Key File**  
+   - On the **Service Accounts** page, click the email address of your new service account.  
+   - Go to the **Keys** tab, then click **Add Key > Create New Key**.  
+   - Select **JSON** as the key type and click **Create**.  
+   - The JSON file will download automatically (named something like `project-id-abc123.json`).  
+   - Rename it to `google-credentials.json` and move it to your project root.
+
+### Using the Credentials
+- Set the environment variable: `export GOOGLE_APPLICATION_CREDENTIALS="path/to/google-credentials.json"` (or equivalent in your OS/shell).  
+- In Python code, the Google Cloud client libraries will automatically use this file for authentication.  
+- **Security Note**: Never commit this file to version control. Use environment variables or secret managers in production.
+
+For more details, see the official [Cloud Vision API Setup Guide](https://cloud.google.com/vision/docs/setup).
 ### How to Run Locally & Make It Public
 
 ```bash
