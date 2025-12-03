@@ -78,7 +78,7 @@ export default function Home() {
     if (data.netContents) formData.append('netContents', data.netContents);
 
     try {
-      const res = await fetch('http://localhost:8000/ocr', {
+      const res = await fetch('/api/proxy/ocr', {
         method: 'POST',
         body: formData,
       });
@@ -213,7 +213,7 @@ export default function Home() {
                 >
                   <Upload className="mx-auto h-28 w-28 text-amber-700 mb-amber-700 mb-8" />
                   <p className="text-2xl font-medium text-gray-700">Drop image here or click to upload</p>
-                  <p className="text-gray-500 mt-3">JPG, PNG • Max 10MB</p>
+                  <p className="text-gray-500 mt-3">JPG, PNG • Max 100MB</p>
                   <input
                     ref={fileInputRef}
                     id="label-image"
@@ -275,7 +275,7 @@ export default function Home() {
             </div>
 
             <div className="grid md:grid-cols-2 gap-12">
-              {result.details.map((d: any) => (
+              {result.details.map((d: { field: string; status: string; message: string }) => (
                 <div
                   key={d.field}
                   className={`p-12 rounded-3xl border-8 shadow-2xl ${
