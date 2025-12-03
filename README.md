@@ -1,89 +1,89 @@
-# AI‑Powered Alcohol Label Verification App  
+# AI‑Powered Alcohol Label Verification App
 **Full‑stack TTB Compliance Auditor • Next.js + FastAPI + Google Vision + Playwright**
 
-![Vercel](https://img.shields.io/badge/Vercel-000000?style=for-the-badge&logo=vercel&logoColor=white)
 ![Next.js](https://img.shields.io/badge/Next.js-000000?style=for-the-badge&logo=nextdotjs&logoColor=white)
 ![FastAPI](https://img.shields.io/badge/FastAPI-009688?style=for-the-badge&logo=fastapi&logoColor=white)
+![Google Cloud Vision](https://img.shields.io/badge/Google_Cloud_Vision-4285F4?style=for-the-badge&logo=google-cloud&logoColor=white)
 ![Playwright](https://img.shields.io/badge/Playwright-45ba4b?style=for-the-badge&logo=playwright&logoColor=white)
+![ngrok](https://img.shields.io/badge/ngrok-1f1e37?style=for-the-badge&logo=ngrok&logoColor=white)
 
-**Live Demo:** https://ai-powered-alcohol-label-verification-app.vercel.app  
-**GitHub (Private):** https://github.com/aalmeida034/AI-Powered-Alcohol-Label-Verification-App
+**Live Demo Hosted on ngrok:**  
+https://lona-oxycephalic-matilde.ngrok-free.dev 
+
+You can use sample figures found in /tests/fixtures
+
+**GitHub:** 
+
+https://github.com/aalmeida034/AI-Powered-Alcohol-Label-Verification-App
 
 ---
-
 ### Overview
-A production‑grade take‑home project that **far exceeds** the original assignment.
+A **production-grade**, self-hosted TTB (Alcohol and Tobacco Tax and Trade Bureau) label verification tool that runs 100% from your own computer or remotely.
 
-This app simulates a real‑world TTB (Alcohol and Tobacco Tax and Trade Bureau) label verification workflow:
-- User fills a simplified COLA‑style form
-- Uploads a real alcohol label image
-- AI (Google Cloud Vision) extracts text
+- Upload any alcohol label image
+- AI extracts text using Google Cloud Vision
 - Smart fuzzy matching + exact Government Warning check
 - Full mandatory TTB compliance audit (27 CFR Parts 4, 5, 7, 16)
-- Instant visual feedback (green/red) + detailed report
+- Instant visual feedback + detailed regulatory report
+
 
 ---
-
 ### Features Delivered
-
-| Feature                                   | Implemented |
-|-------------------------------------------|-------------|
-| Next.js 16 + Tailwind UI (App Router)     | Yes         |
-| FastAPI backend with Google Vision OCR    | Yes         |
-| Smart fuzzy matching (O/0, l/I, apostrophes, spacing) | Yes |
-| Multi‑category support (Spirits, Wine, Beer) | Yes      |
-| Exact Government Health Warning validation | Yes       |
-| Complete TTB mandatory checklist audit with citations | Yes |
-| Async form submission (no page reload)    | Yes         |
-| Loading states & beautiful error handling | Yes         |
-| End‑to‑end Playwright tests with real label images | Yes |
-| Clean repo (no large files, no secrets)   | Yes         |
-| Deployed on Vercel (frontend)             | Yes         |
+| Feature                                  | Status |
+|------------------------------------------|--------|
+| Next.js 15 + Tailwind (App Router)       | Yes    |
+| FastAPI OCR backend with Google Vision   | Yes    |
+| Smart fuzzy matching (O/0, l/I, spacing) | Yes    |
+| Multi-category (Spirits, Wine, Beer)     | Yes    |
+| Exact Government Health Warning check    | Yes    |
+| Full TTB compliance audit with citations | Yes    |
+| Local proxy (`/api/proxy/ocr`)           | Yes    |
+| Large file support (10MB+)               | Yes    |
+| Runs 100% locally with ngrok tunneling   | Yes    |
+| End-to-end Playwright tests              | Yes    |
 
 ---
+## Screenshots
 
-### Screenshots
+### Home page
 
-![Home Page](screenshots/home.png)  
-*Landing page with form and image upload*
+<img width="440" height="958" alt="Screenshot 2025-12-02 160926" src="https://github.com/user-attachments/assets/cf040f74-6682-4e36-a000-58434aa96a11" />
 
-![Form Filled](screenshots/form-filled.png)  
-*Example: Old Tom Distillery Bourbon*
+*Home page sample*
 
-![Success Result](screenshots/success.png)  
+### Good results
+
+<img width="432" height="359" alt="green" src="https://github.com/user-attachments/assets/10a7c12b-f571-4037-963d-acca42d506b6" />
+
 *Perfect match – all green*
 
-![Compliance Report](screenshots/compliance-report.png)  
+### Sample Compliance Audit
+
+<img width="434" height="970" alt="success" src="https://github.com/user-attachments/assets/b69bfd48-8236-4c0a-b0ea-5d443bf774f7" />
+
 *Full TTB audit with regulatory citations*
 
-![Playwright Test UI](screenshots/playwright-ui.png)  
-*Automated E2E tests running in Playwright UI*
+### Unit Testing Sample
 
-*(Drag your screenshots into a `screenshots/` folder and rename them accordingly)*
-
----
-
-### Tech Stack
-
-| Layer          | Technology                                 |
-|----------------|--------------------------------------------|
-| Frontend       | Next.js 16 (App Router), React Hook Form, Zod, Tailwind CSS |
-| Backend        | FastAPI, Google Cloud Vision, Python 3.11  |
-| Testing        | Playwright (E2E) with real label images    |
-| Deployment     | Vercel (frontend) – live in 60 seconds     |
-| Hosting        | Railway / Render (backend – optional)      |
+<img width="944" height="595" alt="unit_test" src="https://github.com/user-attachments/assets/1838d7ec-6a6f-4cea-8cd7-da5d41d0b1a2" />
 
 ---
-
-### How to Run Locally
+### How to Run Locally & Make It Public
 
 ```bash
-# Terminal 1 – Backend
-uvicorn ocr:app --reload
+# 1. Clone and install
+git clone https://github.com/aalmeida034/AI-Powered-Alcohol-Label-Verification-App.git
+cd AI-Powered-Alcohol-Label-Verification-App
+npm install
 
-# Terminal 2 – Frontend
-npm run dev
-# → http://localhost:3000
+# 2. Terminal 1 – Start FastAPI OCR backend
+cd src/api
+uvicorn ocr:app --host 0.0.0.0 --port 8000 --reload
 
-# Terminal 3 – Run tests (optional)
-npx playwright test --ui
+# 3. Terminal 2 – Start Next.js frontend (production mode)
+cd ../../
+npm run build
+npm run start
+
+# 4. Terminal 3 – Expose to the internet with ngrok
+ngrok http 3000
