@@ -24,7 +24,7 @@ else:
     )
 
 # === FASTAPI APP ===
-app = FastAPI(title="TTB Alcohol Label Verifier – Final Submission")  # THIS WAS MISSING!
+app = FastAPI(title="TTB Alcohol Label Verifier – Final Submission") 
 
 app.add_middleware(
     CORSMiddleware,
