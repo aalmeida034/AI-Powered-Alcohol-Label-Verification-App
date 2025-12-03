@@ -1,4 +1,4 @@
-# ocr.py – FINAL SUBMISSION: 100% WORKS ON ALL REAL LABELS
+
 # Handles "Alc/Vol", "Alc./Vol.", "Alc. / Vol.", "45% Alc/Vol", etc.
 
 from fastapi import FastAPI, UploadFile, File, Form
