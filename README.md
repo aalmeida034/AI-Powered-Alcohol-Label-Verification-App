@@ -87,3 +87,14 @@ npm run start
 
 # 4. Terminal 3 – Expose to the internet with ngrok
 ngrok http 3000
+
+# 5. Unit Testing Example
+npx playwright test --ui
+
+Or 
+
+Headless Example
+npx playwright test
+
+Specific Example
+npx playright test "Beer Label"
