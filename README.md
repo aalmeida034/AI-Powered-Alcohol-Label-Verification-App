@@ -137,6 +137,10 @@ For more details, see the official [Cloud Vision API Setup Guide](https://cloud.
 ### How to Run Locally & Make It Public
 
 ```bash
+
+NOTE: if at any point you get an error regarding execution policy. type the following:
+powershell -ep bypass
+
 # 1. Clone and install
 git clone https://github.com/aalmeida034/AI-Powered-Alcohol-Label-Verification-App.git
 cd AI-Powered-Alcohol-Label-Verification-App
