@@ -151,7 +151,7 @@ cd src/api
 uvicorn ocr:app --host 0.0.0.0 --port 8000 --reload
 
 # 3. Terminal 2 – Start Next.js frontend (production mode)
-cd ../../
+cd ../alcohol-label-verifier/
 npm run build
 npm run start
 
